@@ -1,0 +1,13 @@
+# NOTE: Previous versions of pytorch and torchvision might also work as well,
+# but we haven't test them yet
+pytorch_lightning==1.0.2
+matplotlib
+pandas 
+torchmetrics
+scikit-learn
+torch==1.12.1
+torchvision==0.13.1
+learn2learn
+cvxpy
+pyarrow
+statsmodels

@@ -1,92 +1,139 @@
-# Gruppo 7 - Mobile-App Traffic Classification Via Hierarchical Meta-Learning
+# FACIL-TC
 
+Traffic Classification-enabled FACIL framework (https://github.com/mmasana/FACIL).
 
-
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+In order to execute tests:
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/traffic-dieti/idalab/idalab2023/gruppo-7.git
-git branch -M main
-git push -uf origin main
+python3 -m pip install -r requirements.txt
+python3 -m pip install pytest
+exec $SHELL
+
+cd src/
+pytest -s tests/test_<approach>.py 
 ```
 
-## Integrate with your tools
+<div align="center">
+<img src="./docs/_static/facil_logo.png" width="100px">
 
-- [ ] [Set up project integrations](https://gitlab.com/traffic-dieti/idalab/idalab2023/gruppo-7/-/settings/integrations)
+# Framework for Analysis of Class-Incremental Learning
 
-## Collaborate with your team
+---
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+<p align="center">
+  <a href="#what-is-facil">What is FACIL</a> •
+  <a href="#key-features">Key Features</a> •
+  <a href="#how-to-use">How To Use</a> •
+  <a href="src/approach#approaches-1">Approaches</a> •
+  <a href="src/datasets#datasets">Datasets</a> •
+  <a href="src/networks#networks">Networks</a> •
+  <a href="#license">License</a> •
+  <a href="#cite">Cite</a>
+</p>
+</div>
 
-## Test and Deploy
+---
 
-Use the built-in continuous integration in GitLab.
+## What is FACIL
+FACIL started as code for the paper:  
+_**Class-incremental learning: survey and performance evaluation**_  
+*Marc Masana, Xialei Liu, Bartlomiej Twardowski, Mikel Menta, Andrew D. Bagdanov, Joost van de Weijer*  
+([arxiv](https://arxiv.org/abs/2010.15277))
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+It allows to reproduce the results in the paper as well as provide a (hopefully!) helpful framework to develop new
+methods for incremental learning and analyse existing ones. Our idea is to expand the available approaches
+and tools with the help of the community. To help FACIL grow, don't forget to star this github repository and
+share it to friends and coworkers!
 
-***
+## Key Features
+We provide a framework based on class-incremental learning. However, task-incremental learning is also fully
+supported. Experiments by default provide results on both task-aware and task-agnostic evaluation. Furthermore, if an
+experiment runs with one task on one dataset, results would be equivalent to 'common' supervised learning.
 
-# Editing this README
+| Setting | task-ID at train time | task-ID at test time | # of tasks |
+| -----   | ------------------------- | ------------------------ | ------------ |
+| [class-incremental learning](https://arxiv.org/pdf/2010.15277.pdf) | yes | no | ≥1 |
+| [task-incremental learning](https://ieeexplore.ieee.org/abstract/document/9349197) | yes | yes | ≥1 |
+| non-incremental supervised learning | yes | yes | 1 |
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+Current available approaches include:
+<div align="center">
+<p align="center"><b>
+  Finetuning • Freezing • Joint
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+  LwF • iCaRL • EWC • PathInt • MAS • RWalk • EEIL • LwM • DMC • BiC • LUCIR • IL2M
+</b></p>
+</div>
 
-## Name
-Choose a self-explaining name for your project.
+## How To Use
+Clone this github repository:
+```
+git clone https://github.com/mmasana/FACIL.git
+cd FACIL
+```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+<details>
+  <summary>Optionally, create an environment to run the code (click to expand).</summary>
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+  ### Using a requirements file
+  The library requirements of the code are detailed in [requirements.txt](requirements.txt). You can install them
+  using pip with:
+  ```
+  python3 -m pip install -r requirements.txt
+  ```
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+  ### Using a conda environment
+  Development environment based on Conda distribution. All dependencies are in `environment.yml` file.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+  #### Create env
+  To create a new environment check out the repository and type: 
+  ```
+  conda env create --file environment.yml --name FACIL
+  ```
+  *Notice:* set the appropriate version of your CUDA driver for `cudatoolkit` in `environment.yml`.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+  #### Environment activation/deactivation
+  ```
+  conda activate FACIL
+  conda deactivate
+  ```
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+</details>
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+To run the basic code:
+```
+python3 -u src/main_incremental.py
+```
+More options are explained in the [`src`](./src), including GridSearch usage. Also, more specific options on approaches,
+loggers, datasets and networks.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+### Scripts
+We provide scripts to reproduce the specific scenarios proposed in 
+_**Class-incremental learning: survey and performance evaluation**_:
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+* CIFAR-100 (10 tasks) with ResNet-32 without exemplars
+* CIFAR-100 (10 tasks) with ResNet-32 with fixed and growing memory
+* _MORE COMING SOON..._
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+All scripts run 10 times to later calculate mean and standard deviation of the results.
+Check out all available in the [scripts](scripts) folder.
 
 ## License
-For open source projects, say how it is licensed.
+Please check the MIT license that is listed in this repository.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## Cite
+If you want to cite the framework feel free to use this preprint citation while we await publication:
+```bibtex
+@article{masana2020class,
+  title={Class-incremental learning: survey and performance evaluation},
+  author={Masana, Marc and Liu, Xialei and Twardowski, Bartlomiej and Menta, Mikel and Bagdanov, Andrew D and van de Weijer, Joost},
+  journal={arXiv preprint arXiv:2010.15277},
+  year={2020}
+}
+```
+
+---
+
+The basis of FACIL is made possible thanks to [Marc Masana](https://github.com/mmasana),
+[Xialei Liu](https://github.com/xialeiliu), [Bartlomiej Twardowski](https://github.com/btwardow)
+and [Mikel Menta](https://github.com/mkmenta). Code structure is inspired by [HAT](https://github.com/joansj/hat.). Feel free to contribute or propose new features by opening an issue!
